@@ -46,13 +46,14 @@ svg.appendChild(x);
 
 //lines on x axis
 var step = (coord.xend - coord.x)/(values.xend - values.xstart  + 1);
+console.log(step);
 for(i = coord.x+step;i<coord.xend;i+=step){
     x=lines(i,coord.y-10,i,coord.y+10);
     svg.appendChild(x);
 }
 
 //lines on y axis
-step = (coord.y - coord.yend)/(values.yend - values.ystart + 1)*10;
+step = (coord.xend - coord.x)/(values.xend - values.xstart  + 1);
 for(i =coord.yend+step; i<coord.y;i+=step){
     x = lines(coord.x-10,i,coord.x+10,i);
     svg.appendChild(x);
@@ -79,23 +80,23 @@ return x*x;
 // svg.appendChild(x);
 
 //draw the curve on the graph by giving the function and end points of the graph
-function curve(coord,fx) {
+function curve(coord,values,f) {
 
 var height = window.innerHeight;
 var i=0;
 var ratio ={
-    x : (coord.xend - coord.x)/(values.xend - values.xstart),
-    y : (coord.y  - coord.yend)/(values.yend - values.ystart)
+    x : (coord.xend - coord.x)/(values.xend - values.xstart)/1,
+    y : (coord.y  - coord.yend)/(values.yend - values.ystart)/1
 };
 
 while(coord.x + i*ratio.x < coord.xend ){
     var x1 =  coord.x + i*ratio.x;
-    var y1 = coord.y- fx(i)*ratio.y;
-    var x2 =  (i +1)*ratio.x +coord.x;
-    var y2 = coord.y - fx((i+1))*ratio.y;
+    var y1 = coord.y- f(i)*ratio.y;
+    var x2 =  (i +1/ratio.x)*ratio.x +coord.x;
+    var y2 = coord.y - f((i+1/ratio.x))*ratio.y;
 
     x=lines(x1,y1,x2,y2);
     svg.appendChild(x);
-    i++;
+    i = i+1/ratio.x;
 }
 }

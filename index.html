@@ -21,7 +21,12 @@
     }
     var svg = createSvg();
     coordinates(coord,values);
-    curve(coord,fx);
+    curve(coord,values,fx);
+
+function f1(x) {
+    return x;
+}
+//    curve(coord,f1);
     </script>
 
 </body>
