@@ -45,16 +45,16 @@ x = lines(coord.x,coord.y,coord.x,coord.yend);
 svg.appendChild(x);
 
 //lines on x axis
-var step = (coord.xend - coord.x)/(values.xend - values.xstart  + 1);
+var step = (coord.xend - coord.x)/(values.xend - values.xstart);
 console.log(step);
-for(i = coord.x+step;i<coord.xend;i+=step){
+for(i = coord.x+step;i<= coord.xend;i+=step){
     x=lines(i,coord.y-10,i,coord.y+10);
     svg.appendChild(x);
 }
 
 //lines on y axis
-step = (coord.xend - coord.x)/(values.xend - values.xstart  + 1);
-for(i =coord.yend+step; i<coord.y;i+=step){
+step = (coord.y - coord.yend)/(values.yend - values.ystart);
+for(i =coord.y-step; i>=coord.yend;i-=step){
     x = lines(coord.x-10,i,coord.x+10,i);
     svg.appendChild(x);
 }

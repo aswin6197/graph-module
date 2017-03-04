@@ -16,8 +16,8 @@
     var values = {
         xstart : 0,              //no of div in x axis
         ystart : 0,
-        xend : 10,
-        yend : 100               // no of div in y axis
+        xend : 2,
+        yend : 2               // no of div in y axis
     }
     var svg = createSvg();
     coordinates(coord,values);
@@ -26,7 +26,7 @@
 function f1(x) {
     return x;
 }
-//    curve(coord,f1);
+    curve(coord,values,f1);
     </script>
 
 </body>
