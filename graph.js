@@ -112,19 +112,32 @@ while(i <= values.xend){
 }
 
 $(document).mousedown(function(){
-    bpos = event.pageX;
+    bpos = [event.pageX,event.pageY];
 });
 
 $(document).mouseup(function(){
-    var epos = event.pageX;
+    var epos = [event.pageX,event.pageY];
+    var change = [];
+    change[0] = epos[0]-bpos[0];
+    change[1] = epos[1]-bpos[1];
 
-    var change = (epos - bpos)/ratio.x;
-console.log(change);
-    values.xstart -= change;
-    values.xend -= change;
-    console.log(values);
+    coord.x += change[0];
+    coord.xend += change[0];
+
+    coord.y += change[1];
+    coord.yend += change[1];
+
+    change[0] /=ratio.x;
+    change[1] /= ratio.y;
+
+    values.xstart -= change[0];
+    values.xend -= change[0];
+
+    values.ystart += change[1];
+    values.yend += change[1];
+
 
     $("svg").empty();
-    curve(coord,values,fx);
+    curve(coord,values,f1);
     //curve(coord,values,f1)
 });
