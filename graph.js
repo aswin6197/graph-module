@@ -1,4 +1,12 @@
 var NS="http://www.w3.org/2000/svg";
+
+var range;
+var coordinate;
+function copy(coord,values){
+    range = values;
+    coordinate = coord;
+}
+
 //create a svg tag to add elements to it later
 function createSvg() {
 
@@ -36,6 +44,7 @@ return t;
 //draws the x y axises and all the markings
 function coordinates(coord,values) {
 
+copy(coord,values);
 //x axis
 var x = lines(coord.x,coord.y,coord.xend,coord.y);
 svg.appendChild(x);
@@ -46,7 +55,7 @@ svg.appendChild(x);
 
 //lines on x axis
 var step = (coord.xend - coord.x)/(values.xend - values.xstart);
-console.log(step);
+
 for(i = coord.x+step;i<= coord.xend;i+=step){
     x=lines(i,coord.y-10,i,coord.y+10);
     svg.appendChild(x);
@@ -69,9 +78,7 @@ svg.appendChild(x);
 }
 
 
-var fx = function (x) {
-return x*x;
-}
+
 
 // x = document.createElementNS(NS,'text');
 // x.setAttribute('x',100);
@@ -82,14 +89,17 @@ return x*x;
 //draw the curve on the graph by giving the function and end points of the graph
 function curve(coord,values,f) {
 
+
+coordinates(coord,values);
+
 var height = window.innerHeight;
-var i=0;
-var ratio ={
+var i=values.xstart;
+ratio ={
     x : (coord.xend - coord.x)/(values.xend - values.xstart)/1,
     y : (coord.y  - coord.yend)/(values.yend - values.ystart)/1
 };
 
-while(coord.x + i*ratio.x < coord.xend ){
+while(i <= values.xend){
     var x1 =  coord.x + i*ratio.x;
     var y1 = coord.y- f(i)*ratio.y;
     var x2 =  (i +1/ratio.x)*ratio.x +coord.x;
@@ -100,3 +110,21 @@ while(coord.x + i*ratio.x < coord.xend ){
     i = i+1/ratio.x;
 }
 }
+
+$(document).mousedown(function(){
+    bpos = event.pageX;
+});
+
+$(document).mouseup(function(){
+    var epos = event.pageX;
+
+    var change = (epos - bpos)/ratio.x;
+console.log(change);
+    values.xstart -= change;
+    values.xend -= change;
+    console.log(values);
+
+    $("svg").empty();
+    curve(coord,values,fx);
+    //curve(coord,values,f1)
+});
