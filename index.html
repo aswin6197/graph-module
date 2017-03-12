@@ -6,7 +6,11 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
     <script src="graph.js" type="text/javascript"></script>
+<style>
+    svg{
 
+    }
+</style>
 </head>
 <body>
     <script>
@@ -18,15 +22,16 @@
 // });
     var coord = {
         x:500,              //x coordinate of the origin of graph
-        y:550,             //y coordinate of origin of graph
-        xend:1000,      //x coordinate of end of the x axis
-        yend:50         //y coordinate of end of y axis
+        y:50,             //y coordinate of origin of graph
+        xlen:500,      //x coordinate of end of the x axis
+        ylen:500         //y coordinate of end of y axis
     };
+
     var values = {
-        xstart : 0,              //no of div in x axis
-        ystart : 0,
-        xend : 2,
-        yend : 2               // no of div in y axis
+        xstart :-2,              //no of div in x axis
+        ystart :-2,
+        xend : 8,
+        yend :8               // no of div in y axis
     }
     var fx = function (x) {
     return x*x;
