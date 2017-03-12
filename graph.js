@@ -54,6 +54,18 @@ var t =
 origin.x =coord.x +  Math.round((0- values.xstart )/(values.xend- values.xstart)*coord.xlen);
 origin.y =coord.ylen +  coord.y - Math.round((0 - values.ystart)/(values.yend - values.ystart)*coord.ylen);
 //x axis
+if(origin.x < coord.x)
+    origin.x = coord.x;
+
+else if(origin.x > coord.x + coord.xlen)
+    origin.x = coord.x + coord.xlen;
+
+else if (origin.y < coord.y) {
+    origin.y = coord.y;
+}
+    else if(origin.y > coord.y +coord.ylen)
+        origin.y = coord.y + coord.ylen;
+
 var x = lines(coord.x,origin.y,coord.x + coord.xlen,origin.y);
 svg.appendChild(x);
 
@@ -83,6 +95,7 @@ for(i = -1;i>= values.xstart;i--){
  temp = origin.y - 0;
 
 for(i = 1;i<=values.yend;i++){
+
     x = lines(origin.x,temp-Math.round(i)*ratio.y,origin.x+10,temp-Math.round(i)*ratio.y);
     svg.appendChild(x);
     x = text(origin.x-20,temp-Math.round(i)*ratio.y,Math.round(i));
@@ -129,13 +142,21 @@ var height = window.innerHeight;
 var i=values.xstart;
 
 while(i <= values.xend){
+
+
     var x1 =  origin.x + i*ratio.x;
     var y1 = origin.y - f(i)*ratio.y;
     var x2 =  (i +1/ratio.x)*ratio.x +origin.x;
     var y2 = origin.y - f((i+1/ratio.x))*ratio.y;
 
-    x=lines(x1,y1,x2,y2);
-    svg.appendChild(x);
+    if(y1 < coord.y )
+        break;
+    if(y1 <= coord.y+coord.ylen)
+    //    continue;
+    {
+        x=lines(x1,y1,x2,y2);
+        svg.appendChild(x);
+    }
     i = i+1/ratio.x;
 }
 }
@@ -150,17 +171,12 @@ $(document).mouseup(function(){
     change[0] = epos[0]-bpos[0];
     change[1] = epos[1]-bpos[1];
 //change[0] = 0;
-    //coord.x += change[0];
-    //coord.xend += change[0];
-
-    //coord.y += change[1];
-    //coord.yend += change[1];
 
     change[0] /=ratio.x;
     change[1] /= ratio.y;
 
-console.log(change);
     values.xstart -= change[0];
+
     values.xend -= change[0];
 
     values.ystart += change[1];
