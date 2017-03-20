@@ -3,23 +3,6 @@ var origin = {
     x:0,
     y:0
 };
-//create a svg tag to add elements to it later
-function createSvg(coord) {
-
-    var svg = document.createElementNS(NS,"svg");
-    svg.setAttribute('width',window.innerWidth);
-    svg.setAttribute('height',window.innerHeight);
-    document.body.appendChild(svg);
-
-    var svg = document.createElementNS(NS,"g");
-    svg.setAttribute('width',coord.xlen);
-    svg.setAttribute('height',coord.ylen);
-    svg.setAttribute("x",coord.x);
-    svg.setAttribute("y",coord.y);
-    svg.setAttribute("id","graph");
-    $("svg").append(svg);
-    return svg;
-}
 
 //function to draw lines by giving it two points
 function lines(x1,y1,x2,y2){
@@ -54,6 +37,24 @@ function border(coord){
     svg.appendChild(x);
     x = lines(coord.x,coord.y+coord.ylen,coord.x+coord.xlen,coord.y+coord.ylen);
     svg.appendChild(x);
+}
+
+//create a svg tag to add elements to it later
+function createSvg(coord) {
+
+    var svg = document.createElementNS(NS,"svg");
+    svg.setAttribute('width',window.innerWidth);
+    svg.setAttribute('height',window.innerHeight);
+    document.body.appendChild(svg);
+
+    var svg = document.createElementNS(NS,"g");
+    svg.setAttribute('width',coord.xlen);
+    svg.setAttribute('height',coord.ylen);
+    svg.setAttribute("x",coord.x);
+    svg.setAttribute("y",coord.y);
+    svg.setAttribute("id","graph");
+    $("svg").append(svg);
+    return svg;
 }
 
 //draws the x y axises and all the markings
@@ -131,6 +132,7 @@ function curve(coord,values,f) {
     var height = window.innerHeight;
     var i=values.xstart;
 
+
     while(i <= values.xend){
 
 
@@ -149,7 +151,7 @@ function curve(coord,values,f) {
         i = i+1/ratio.x;
     }
 }
-
+// for panning
 var f = 0;
 $(document).mousedown(function(){
     if(event.pageX > coord.x && event.pageX < coord.x + coord.xlen)
