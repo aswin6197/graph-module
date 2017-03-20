@@ -120,37 +120,44 @@ if(flag.y == 1){
 
 
 //draw the curve on the graph by giving the function and end points of the graph
-function curve(coord,values,f) {
-
+function curve(coord,values,ar) {
     ratio ={
         x : coord.xlen/(values.xend - values.xstart)/1,
         y : coord.ylen/(values.yend - values.ystart)/1
     };
     border(coord);
     coordinates(coord,values);
-
     var height = window.innerHeight;
-    var i=values.xstart;
 
 
-    while(i <= values.xend){
+    for(var i = 0;i<ar.length-1;i++){
 
+        var x1 =  origin.x + ar[i].x*ratio.x;
+        var y1 = origin.y - ar[i].y*ratio.y;
+        var x2 = origin.x + (ar[i +1].x)*ratio.x;
+        var y2 = origin.y - ar[i+1].y*ratio.y;
 
-        var x1 =  origin.x + i*ratio.x;
-        var y1 = origin.y - f(i)*ratio.y;
-        var x2 =  (i +1/ratio.x)*ratio.x +origin.x;
-        var y2 = origin.y - f((i+1/ratio.x))*ratio.y;
+        if(x1 > coord.x && x2 < coord.x + coord.xlen)
+            if(y1 < coord.y + coord.ylen && y2 > coord.y)
+                if( y2 < coord.y + coord.ylen && y1 > coord.y)
+            {
+                x=lines(x1,y1,x2,y2);
+                svg.appendChild(x);
+            }
 
-        if(y1 < coord.y )
-            break;
-        if(y1 <= coord.y+coord.ylen)
-        {
-            x=lines(x1,y1,x2,y2);
-            svg.appendChild(x);
-        }
-        i = i+1/ratio.x;
+        //
+        // if(x2 >= coord.x + coord.xlen)
+        //     break;
+        // if(y1 < coord.y )
+        //     break;
+        // if(y1 <= coord.y+coord.ylen)
+        // {
+        //     x=lines(x1,y1,x2,y2);
+        //     svg.appendChild(x);
+        // }
     }
 }
+
 // for panning
 var f = 0;
 $(document).mousedown(function(){
@@ -182,7 +189,8 @@ $(document).mousemove(function move(){
 
 
         $("g").empty();
-        curve(coord,values,f1);
+
+        curve(coord,values,ar);
         bpos = [event.pageX,event.pageY];
     }
 });
@@ -190,5 +198,6 @@ $(document).mousemove(function move(){
 
 
 $(document).mouseup(function move(){
+    //console.log(values);
     f =0;
  });

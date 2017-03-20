@@ -34,18 +34,24 @@
         xend : 8,
         yend :8               // no of div in y axis
     }
-    var fx = function (x) {
-    return x*x;
-    }
-    
-    var svg = createSvg(coord);
-    // coordinates(coord,values);
-    //curve(coord,values,fx);
 
 function f1(x) {
-    return x;
+    return x*x;
 }
-    curve(coord,values,f1);
+    var svg = createSvg(coord);
+
+var ar =[];
+
+var j = -5;
+for(var i=0;i<=100;i++){
+
+    ar[i] = {
+        x : j,
+        y : f1(j)
+    };
+    j+=0.1;
+}
+    curve(coord,values,ar);
     </script>
 
 </body>
