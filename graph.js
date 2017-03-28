@@ -42,10 +42,10 @@ function border(coord){
 //create a svg tag to add elements to it later
 function createSvg(coord) {
 
-    var svg = document.createElementNS(NS,"svg");
-    svg.setAttribute('width',window.innerWidth);
-    svg.setAttribute('height',window.innerHeight);
-    document.body.appendChild(svg);
+    svg1 = document.createElementNS(NS,"svg");
+    svg1.setAttribute('width',window.innerWidth);
+    svg1.setAttribute('height',window.innerHeight);
+    document.body.appendChild(svg1);
 
     var svg = document.createElementNS(NS,"g");
     svg.setAttribute('width',coord.xlen);
@@ -128,8 +128,8 @@ function curve(coord,values,ar) {
     border(coord);
     coordinates(coord,values);
     var height = window.innerHeight;
-
-
+    var t = document.createElementNS(NS,"polyline");
+    t.setAttribute('points',[]);
     for(var i = 0;i<ar.length-1;i++){
 
         var x1 =  origin.x + ar[i].x*ratio.x;
@@ -137,14 +137,27 @@ function curve(coord,values,ar) {
         var x2 = origin.x + (ar[i +1].x)*ratio.x;
         var y2 = origin.y - ar[i+1].y*ratio.y;
 
+        // var points = t.getAttributeNS(NS,"points");
+        // points = [0,0];
+        // t.setAttributeNS(NS,'points',points);
+
         if(x1 > coord.x && x2 < coord.x + coord.xlen)
             if(y1 < coord.y + coord.ylen && y2 > coord.y)
                 if( y2 < coord.y + coord.ylen && y1 > coord.y)
             {
-                x=lines(x1,y1,x2,y2);
-                svg.appendChild(x);
-            }
+                var points = t.getAttribute("points");
+                points += "  "+[x1,y1];
+                // points += " ";
+                t.setAttribute('points',points);
+                // var point = svg1.createSVGPoint();
+                // point.x = x1;
+                // point.y = y1;
+                // t.points.appendItem(point);
 
+                // x=lines(x1,y1,x2,y2);
+                // svg.appendChild(x);
+            }
+svg.appendChild(t);
         //
         // if(x2 >= coord.x + coord.xlen)
         //     break;
