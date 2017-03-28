@@ -131,32 +131,20 @@ function curve(coord,values,ar) {
     var t = document.createElementNS(NS,"polyline");
     t.setAttribute('points',[]);
     t.setAttribute('fill',"none");
+    t.setAttribute('stroke','black');
+    t.setAttribute('stroke-width','1');
+
     for(var i = 0;i<ar.length-1;i++){
 
-        var x1 =  origin.x + ar[i].x*ratio.x;
-        var y1 = origin.y - ar[i].y*ratio.y;
-        var x2 = origin.x + (ar[i +1].x)*ratio.x;
-        var y2 = origin.y - ar[i+1].y*ratio.y;
+        var x =  origin.x + ar[i].x*ratio.x;
+        var y = origin.y - ar[i].y*ratio.y;
 
-        // var points = t.getAttributeNS(NS,"points");
-        // points = [0,0];
-        // t.setAttributeNS(NS,'points',points);
-
-        if(x1 > coord.x && x2 < coord.x + coord.xlen)
-            if(y1 < coord.y + coord.ylen && y2 > coord.y)
-                if( y2 < coord.y + coord.ylen && y1 > coord.y)
+        if(x > coord.x && x < coord.x + coord.xlen)
+            if(y < coord.y + coord.ylen && y1 > coord.y)
             {
                 var points = t.getAttribute("points");
                 points += "  "+[x1,y1];
-                // points += " ";
                 t.setAttribute('points',points);
-                // var point = svg1.createSVGPoint();
-                // point.x = x1;
-                // point.y = y1;
-                // t.points.appendItem(point);
-
-                // x=lines(x1,y1,x2,y2);
-                // svg.appendChild(x);
             }
 svg.appendChild(t);
         //
