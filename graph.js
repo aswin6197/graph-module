@@ -131,6 +131,9 @@ function curve(coord,values,ar) {
     var t = document.createElementNS(NS,"polyline");
     t.setAttribute('points',[]);
     t.setAttribute('fill',"none");
+    t.setAttribute('stroke','black');
+    t.setAttribute('stroke-width','1');
+
     for(var i = 0;i<ar.length-1;i++){
 
         var x1 =  origin.x + ar[i].x*ratio.x;
