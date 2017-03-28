@@ -130,6 +130,7 @@ function curve(coord,values,ar) {
     var height = window.innerHeight;
     var t = document.createElementNS(NS,"polyline");
     t.setAttribute('points',[]);
+    t.setAttribute('fill',"none");
     for(var i = 0;i<ar.length-1;i++){
 
         var x1 =  origin.x + ar[i].x*ratio.x;
