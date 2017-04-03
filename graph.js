@@ -140,23 +140,13 @@ function curve(coord,values,ar) {
         var y = origin.y - ar[i].y*ratio.y;
 
         if(x > coord.x && x < coord.x + coord.xlen)
-            if(y < coord.y + coord.ylen && y1 > coord.y)
+            if(y < coord.y + coord.ylen && y > coord.y)
             {
                 var points = t.getAttribute("points");
-                points += "  "+[x1,y1];
+                points += "  "+[x,y];
                 t.setAttribute('points',points);
             }
 svg.appendChild(t);
-        //
-        // if(x2 >= coord.x + coord.xlen)
-        //     break;
-        // if(y1 < coord.y )
-        //     break;
-        // if(y1 <= coord.y+coord.ylen)
-        // {
-        //     x=lines(x1,y1,x2,y2);
-        //     svg.appendChild(x);
-        // }
     }
 }
 
